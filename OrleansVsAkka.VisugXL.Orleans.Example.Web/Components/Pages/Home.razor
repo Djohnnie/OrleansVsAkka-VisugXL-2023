@@ -1,0 +1,20 @@
+﻿@using OrleansVsAkka.VisugXL.Orleans.Example.Common;
+
+@page "/"
+@rendermode InteractiveServer
+@inject IClusterClient ClusterClient
+
+<PageTitle>Home</PageTitle>
+
+<h1>Hello, Orleans!</h1>
+
+<button class="btn btn-primary" @onclick="StartMayhem">Release the grains!</button>
+
+@code
+{
+    public void StartMayhem()
+    {
+        var grain = ClusterClient.GetGrain<IMayhemGrain>(Guid.NewGuid());
+        grain.Start();
+    }
+}
